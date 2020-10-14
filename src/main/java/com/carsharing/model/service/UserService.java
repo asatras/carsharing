@@ -35,11 +35,11 @@ public class UserService {
         }
     }
 
-    public Optional<User> findUser(String username, String password) {
+    public Optional<User> findUser(String login, String password) {
         Optional<User> user = Optional.empty();
         try (UserDAO userDAO = daoFactory.createUserDAO()) {
             user = Optional.ofNullable(userDAO
-                    .findByLoginAndPassword(username, password));
+                    .findByLoginAndPassword(login, password));
             return user;
         } catch (SQLException e) {
             logger.error("Cannot find user by login and password", e);

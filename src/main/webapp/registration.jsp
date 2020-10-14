@@ -39,6 +39,8 @@
         <button type="submit">Registration</button>
     </form>
     <br>
+    <p class="message"><a href="${pageContext.request.contextPath}/index.jsp"> <fmt:message key="message.sign.in"/></a>
+    </p>
 
 
 <%--    <div class="container mt-2">--%>

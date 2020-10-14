@@ -16,7 +16,8 @@ public class CommandContainer {
         logger.debug("Add commands to commandContainer");
 
         commandContainer.put("index", new IndexCommand());
-        commandContainer.put("login", new LoginCommand());
+        commandContainer.put("login", new LoginCommand(userService));
+        commandContainer.put("logout", new LogOutCommand());
         commandContainer.put("registration", new RegistrationCommand(userService));
 //        commandContainer.put("user", new UserCommand());
         commandContainer.put("noCommand", new NoCommand());

@@ -1,8 +1,5 @@
 package com.carsharing.model.db.dao.impl;
 
-//import com.carsharing.Servlet;
-//import com.carsharing.command.NoCommand;
-
 import com.carsharing.model.db.ConnectionPool;
 import com.carsharing.model.db.dao.DAOFactory;
 import com.carsharing.model.db.dao.UserDAO;
@@ -13,10 +10,12 @@ import com.carsharing.model.db.entity.User;
 import org.apache.log4j.Logger;
 
 import java.math.BigDecimal;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
-//import java.util.concurrent.CopyOnWriteArrayList;
 
 public class UserDAOImpl implements UserDAO {
 
@@ -62,12 +61,26 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public User findByLogin(String login) {
+        logger.debug("Got " + login + " parameter in findByLogin method");
+        try (PreparedStatement preparedStatement = connection.prepareStatement(QUERY_FIND_BY_LOGIN)) {
+            int k = 1;
+            preparedStatement.setString(k++, login);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                logger.debug("Founded user by login " + login);
+                return userMapper.mapRow(resultSet);
+//                return extractFromResultSet(resultSet);
+            }
+        } catch (SQLException e) {
+            logger.error("Cannot find by login ", e);
+            throw new RuntimeException(e);
+        }
+        logger.debug("Returning null from findByLogin method");
         return null;
     }
 
-    //    @Override
-    public User findByLogin(String login, Connection connection) {
-        logger.debug("Got " + login + " parameter in findByLogin method");
+    public User findByLoginUsingConnection(String login, Connection connection) {
+        logger.debug("Got " + login + " parameter in findByLoginUsingConnection method");
         try (PreparedStatement preparedStatement = connection.prepareStatement(QUERY_FIND_BY_LOGIN)) {
             int k = 1;
             preparedStatement.setString(k++, login);
@@ -97,7 +110,6 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void add(User entity) throws SQLException {
-//        ResultSet rs = null;
 
         //TODO get connection and return to the pool
         try (Connection connection = ConnectionPool.getInstance().getConnection()) {
@@ -119,8 +131,7 @@ public class UserDAOImpl implements UserDAO {
                 k = 1;
                 logger.debug("k = " + k);
                 logger.debug("entity.getLogin() paramert ==>" + entity.getLogin());
-//                logger.debug("entity.getLogin().getId() paramert ==>" + entity.getLogin().getId());
-                preparedStatement1.setLong(k++, findByLogin(entity.getLogin(), connection).getId());
+                preparedStatement1.setLong(k++, findByLoginUsingConnection(entity.getLogin(), connection).getId());
                 preparedStatement1.setLong(k++, Arrays.asList(Role.values()).indexOf(entity.getRole()) + 1);
                 preparedStatement1.executeUpdate();
                 connection.commit();
@@ -174,22 +185,5 @@ public class UserDAOImpl implements UserDAO {
             //TODO log
             throw new RuntimeException(e);
         }
-    }
-
-    private User extractFromResultSet(ResultSet rs)
-            throws SQLException {
-        return User.builder()
-                .id(rs.getLong("id"))
-                .login(rs.getString("login"))
-                .password(rs.getString("password"))
-                .email(rs.getString("email"))
-                .name(rs.getString("name"))
-                .surname(rs.getString("surname"))
-                .passport(rs.getString("passport"))
-//                .role(Role.valueOf(rs.getString("role")))
-//                .role(Role.values()[rs.getInt("roles_id") - 1])
-                .balance(rs.getBigDecimal("balance"))
-                .isActive(rs.getBoolean("isActive"))
-                .build();
     }
 }
