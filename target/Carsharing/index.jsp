@@ -21,13 +21,13 @@
 <body>
 
 <nav class="navbar navbar-dark bg-dark navbar-expand-md navigation-clean-button">
-    <div class="container"><a class="navbar-brand" href="#"><fmt:message key="msg.repair.agency"/></a>
+    <div class="container"><a class="navbar-brand" href="#"><fmt:message key="msg.carsharing"/></a>
         <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span
                 class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse"
              id="navcol-1">
 
-                <span class="navbar-text actions"> <a href="${pageContext.request.contextPath}/login" class="login"> <fmt:message key="message.login"/></a>
+                <span class="navbar-text actions"> <a href="login.jsp" class="login"> <fmt:message key="message.login"/></a>
                     <a class="btn btn-light action-button" role="button" href="${pageContext.request.contextPath}/registration"
                        style="background-color: #0062cc;"> <fmt:message key="message.registration"/></a></a>
                 </span>
@@ -46,11 +46,11 @@
 <%--</div>--%>
 <h2>Hello, guest!</h2>
 
-<div>
-    <form action="login.jsp">
-        <input type="submit" value="Login" />
-    </form>
-</div>
+<%--<div>--%>
+<%--    <form action="login.jsp">--%>
+<%--        <input type="submit" value="Login" />--%>
+<%--    </form>--%>
+<%--</div>--%>
 
 <div data-bs-parallax-bg="true"
      style="height: 500px;background-image: url(static/background.jpg);background-position: center;background-size: cover;"></div>
@@ -76,7 +76,7 @@
                     </ul>
                 </div>
                 <div class="col-md-6 item text">
-                    <h3><strong><a><fmt:message key="msg.repair.agency"/></a></strong><br></h3>
+                    <h3><strong><a><fmt:message key="msg.carsharing"/></a></strong><br></h3>
                     <p><br><a><fmt:message key="msg.welcome.meaage"/></a><br><br></p>
                 </div>
                 <!--<div class="col item social"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-instagram"></i></a></div>-->

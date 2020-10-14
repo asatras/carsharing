@@ -16,7 +16,7 @@
     <h1>Login page</h1>
 
     <h1>Test block</h1>
-    <form method="get" action="Servlet">
+    <form method="post" action="Servlet">
         <input type="hidden" name="command" value="login"/>
         Login<input type="text" name="login"/>
         Password<input type="password" name="password"/>

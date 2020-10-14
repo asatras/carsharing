@@ -27,7 +27,7 @@
         <div class="collapse navbar-collapse"
              id="navcol-1">
 
-                <span class="navbar-text actions"> <a href="${pageContext.request.contextPath}/login" class="login"> <fmt:message key="message.login"/></a>
+                <span class="navbar-text actions"> <a href="login.jsp" class="login"> <fmt:message key="message.login"/></a>
                     <a class="btn btn-light action-button" role="button" href="${pageContext.request.contextPath}/registration"
                        style="background-color: #0062cc;"> <fmt:message key="message.registration"/></a></a>
                 </span>
@@ -46,11 +46,11 @@
 <%--</div>--%>
 <h2>Hello, guest!</h2>
 
-<div>
-    <form action="login.jsp">
-        <input type="submit" value="Login" />
-    </form>
-</div>
+<%--<div>--%>
+<%--    <form action="login.jsp">--%>
+<%--        <input type="submit" value="Login" />--%>
+<%--    </form>--%>
+<%--</div>--%>
 
 <div data-bs-parallax-bg="true"
      style="height: 500px;background-image: url(static/background.jpg);background-position: center;background-size: cover;"></div>

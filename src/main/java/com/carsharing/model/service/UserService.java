@@ -40,6 +40,9 @@ public class UserService {
         try (UserDAO userDAO = daoFactory.createUserDAO()) {
             user = Optional.ofNullable(userDAO
                     .findByLoginAndPassword(login, password));
+
+            logger.debug("Founded user: " + user.toString());
+
             return user;
         } catch (SQLException e) {
             logger.error("Cannot find user by login and password", e);

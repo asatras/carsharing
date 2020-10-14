@@ -32,7 +32,7 @@ public class LoginCommand implements Command {
         logger.debug("LoginCommand starts");
 
         String login = request.getParameter("login");
-        String password = request.getParameter("pass");
+        String password = request.getParameter("password");
 
         if (login == null)
             return PAGE_LOGIN_PAGE;

@@ -40,17 +40,28 @@ public class UserDAOImpl implements UserDAO {
     private DAOFactory daoFactory = DAOFactory.getInstance();
 
     @Override
-    public User findByLoginAndPassword(String username, String password) {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(QUERY_FIND_USER_BY_LOGIN_AND_PASSWORD)) {
-            int k = 1;
-            preparedStatement.setString(k++, "login");
-            preparedStatement.setString(k++, "password");
+    public User findByLoginAndPassword(String login, String password) {
+        logger.debug("Method findByLoginAndPassword in UserDAOImpl starts");
 
-            ResultSet resultSet = preparedStatement.executeQuery();
+        try (Connection connection = ConnectionPool.getInstance().getConnection()) {
+            logger.debug("Got connection in findByLoginAndPassword method: " + connection);
+            try (PreparedStatement preparedStatement = connection.prepareStatement(QUERY_FIND_USER_BY_LOGIN_AND_PASSWORD)) {
+                int k = 1;
 
-            if (resultSet.next()) {
-                logger.debug("Founded user by login and password");
-                userMapper.mapRow(resultSet);
+                logger.debug("Got login and password in findByLoginAndPassword: " + login + ", " + password);
+                preparedStatement.setString(k++, "login");
+                preparedStatement.setString(k++, "password");
+
+                ResultSet resultSet = preparedStatement.executeQuery();
+                logger.debug("resultSet is: " + resultSet.getString("login")
+                                            + " " + resultSet.getString("password"));
+
+                if (resultSet.next()) {
+                    logger.debug("Founded user by login and password");
+                    userMapper.mapRow(resultSet);
+                } else {
+                    logger.debug("No users were founded");
+                }
             }
         } catch (SQLException e) {
             logger.error("Cannot find by login and password", e);
@@ -62,25 +73,19 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public User findByLogin(String login) {
         logger.debug("Got " + login + " parameter in findByLogin method");
-        try (PreparedStatement preparedStatement = connection.prepareStatement(QUERY_FIND_BY_LOGIN)) {
-            int k = 1;
-            preparedStatement.setString(k++, login);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                logger.debug("Founded user by login " + login);
-                return userMapper.mapRow(resultSet);
-//                return extractFromResultSet(resultSet);
-            }
+
+        try (Connection connection = ConnectionPool.getInstance().getConnection()) {
+            logger.debug("Calling findByLogin method");
+            return findByLoginUsingConnection(login, connection);
         } catch (SQLException e) {
-            logger.error("Cannot find by login ", e);
+            logger.error("Exception in try section in findByLogin method ", e);
             throw new RuntimeException(e);
         }
-        logger.debug("Returning null from findByLogin method");
-        return null;
     }
 
     public User findByLoginUsingConnection(String login, Connection connection) {
         logger.debug("Got " + login + " parameter in findByLoginUsingConnection method");
+
         try (PreparedStatement preparedStatement = connection.prepareStatement(QUERY_FIND_BY_LOGIN)) {
             int k = 1;
             preparedStatement.setString(k++, login);
@@ -94,7 +99,7 @@ public class UserDAOImpl implements UserDAO {
             logger.error("Cannot find by login ", e);
             throw new RuntimeException(e);
         }
-        logger.debug("Returning null from findByLogin method");
+        logger.debug("Returning null from findByLoginUsingConnection method");
         return null;
     }
 
