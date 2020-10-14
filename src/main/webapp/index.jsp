@@ -21,7 +21,7 @@
 <body>
 
 <nav class="navbar navbar-dark bg-dark navbar-expand-md navigation-clean-button">
-    <div class="container"><a class="navbar-brand" href="#"><fmt:message key="msg.repair.agency"/></a>
+    <div class="container"><a class="navbar-brand" href="#"><fmt:message key="msg.carsharing"/></a>
         <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span
                 class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse"
@@ -76,7 +76,7 @@
                     </ul>
                 </div>
                 <div class="col-md-6 item text">
-                    <h3><strong><a><fmt:message key="msg.repair.agency"/></a></strong><br></h3>
+                    <h3><strong><a><fmt:message key="msg.carsharing"/></a></strong><br></h3>
                     <p><br><a><fmt:message key="msg.welcome.meaage"/></a><br><br></p>
                 </div>
                 <!--<div class="col item social"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-instagram"></i></a></div>-->
