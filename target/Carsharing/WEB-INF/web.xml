@@ -1,0 +1,28 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+  <display-name>Archetype Created Web Application</display-name>
+
+<!--  <servlet>-->
+<!--    <servlet-name>Servlet</servlet-name>-->
+<!--    <servlet-class>com.carsharing.Servlet</servlet-class>-->
+<!--  </servlet>-->
+
+<!--  <servlet-mapping>-->
+<!--    <servlet-name>Servlet</servlet-name>-->
+<!--    <url-pattern>/servlet</url-pattern>-->
+<!--  </servlet-mapping>-->
+
+  <!-- Error Page -->
+  <error-page>
+    <exception-type>java.lang.Exception</exception-type>
+    <location>/WEB-INF/serverError.jsp</location>
+  </error-page>
+  <error-page>
+    <error-code>404</error-code>
+    <location>/WEB-INF/error404.jsp</location>
+  </error-page>
+
+</web-app>
