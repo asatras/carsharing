@@ -35,8 +35,8 @@ public class CommandService {
 
     public static void setUserRole(HttpServletRequest request, Role role, String login) {
         HttpSession session = request.getSession();
-        session.setAttribute("login", login);
         session.setAttribute("role", role);
+        session.setAttribute("login", login);
     }
 
     public static void deleteUserFromContextAndSession(HttpServletRequest request) {

@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public interface UserDAO extends GenericDAO<User> {
 
-    User findByLoginAndPassword(String username, String password);
+    User findByLoginAndPassword(String login, String password);
 
     User findByLogin(String login);
 

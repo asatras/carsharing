@@ -9,5 +9,5 @@ import java.sql.SQLException;
  * but only extract information from the row in current cursor position.
  */
 public interface EntityMapper<T> {
-    T mapRow(ResultSet rs) throws SQLException;
+    T mapUser(ResultSet rs) throws SQLException;
 }

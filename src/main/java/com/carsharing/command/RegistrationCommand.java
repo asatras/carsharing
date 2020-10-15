@@ -5,12 +5,11 @@ import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.sql.SQLException;
 
 public class RegistrationCommand implements Command {
 
-    public static final String PAGE_REGISTRATION_PAGE = "/registration.jsp";
-    public static final String PAGE_REDIRECT_TO_LOGIN_PAGE = "redirect:/login";
+    private static final String PAGE_REGISTRATION_PAGE = "registration.jsp";
+    private static final String PAGE_LOGIN_PAGE = "login.jsp";
     private static final Logger logger = Logger.getLogger(RegistrationCommand.class);
 
 
@@ -54,6 +53,6 @@ public class RegistrationCommand implements Command {
         userService.addUser(login, password, email, name, surname, passport);
         logger.debug("Execute method in RegistrationCommand finished, now redirecting");
 
-        return PAGE_REDIRECT_TO_LOGIN_PAGE;
+        return PAGE_LOGIN_PAGE;
     }
 }

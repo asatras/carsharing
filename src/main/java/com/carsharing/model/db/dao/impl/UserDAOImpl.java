@@ -21,7 +21,12 @@ public class UserDAOImpl implements UserDAO {
 
     private final static String QUERY_ADD_USER = "INSERT INTO users (login, password, email, name, surname, passport, isActive, balance) VALUES (? ,? ,?, ?, ?, ?, ?, ?)";
     private final static String QUERY_ADD_USER_ROLE = "INSERT INTO users_has_roles (users_id, roles_id) VALUES (?, ?)";
-    private final static String QUERY_FIND_USER_BY_LOGIN_AND_PASSWORD = "SELECT * FROM users WHERE login = ? AND password = ?";
+//    private final static String QUERY_FIND_USER_BY_LOGIN_AND_PASSWORD = "SELECT * FROM users WHERE login = ? AND password = ?";
+
+    //TEST QUERY
+    private final static String QUERY_FIND_USER_BY_LOGIN_AND_PASSWORD = "SELECT * FROM users JOIN users_has_roles on users_id=users_has_roles.users_id join roles on users_has_roles.roles_id=roles_id where users_id=users_has_roles.users_id and users_has_roles.roles_id=roles.id and login=? and password=?";
+
+
     private final static String QUERY_FIND_BY_LOGIN = "SELECT * FROM users WHERE login = ?";
     private final static String QUERY_FIND_ALL_USERS = "SELECT * FROM users";
 
@@ -43,31 +48,71 @@ public class UserDAOImpl implements UserDAO {
     public User findByLoginAndPassword(String login, String password) {
         logger.debug("Method findByLoginAndPassword in UserDAOImpl starts");
 
-        try (Connection connection = ConnectionPool.getInstance().getConnection()) {
-            logger.debug("Got connection in findByLoginAndPassword method: " + connection);
-            try (PreparedStatement preparedStatement = connection.prepareStatement(QUERY_FIND_USER_BY_LOGIN_AND_PASSWORD)) {
-                int k = 1;
+//        try (Connection connection = ConnectionPool.getInstance().getConnection();
+////        )
+////        {
+////            logger.debug("Got connection in findByLoginAndPassword method: ");
+////            try (
+//                    PreparedStatement preparedStatement = connection.prepareStatement(QUERY_FIND_USER_BY_LOGIN_AND_PASSWORD)) {
+//                int k = 1;
+//
+//                logger.debug("Got login and password in findByLoginAndPassword: " + login + ", " + password);
+//                preparedStatement.setString(k++, "login");
+//                preparedStatement.setString(k++, "password");
+//
+//                ResultSet resultSet = preparedStatement.executeQuery();
+//
+//                if (resultSet.next()) {
+//                    logger.debug("resultSet is not empty");
+////                System.out.println(resultSet.getLong("id"));
+////                System.out.println(resultSet.getString("login"));
+////                System.out.println(resultSet.getString("password"));
+////                System.out.println(resultSet.getString("email"));
+////                System.out.println(resultSet.getString("name"));
+////                System.out.println(resultSet.getString("surname"));
+////                System.out.println(resultSet.getString("passport"));
+////                System.out.println(resultSet.getString("balance"));
+////                System.out.println(resultSet.getString("isActive"));
+//                    userMapper.mapRow(resultSet);
+////                }
+//            }
+//        } catch (SQLException e) {
+//            logger.error("Cannot find by login and password", e);
+//            throw new RuntimeException(e);
+//        }
+//        return null;
 
-                logger.debug("Got login and password in findByLoginAndPassword: " + login + ", " + password);
-                preparedStatement.setString(k++, "login");
-                preparedStatement.setString(k++, "password");
 
-                ResultSet resultSet = preparedStatement.executeQuery();
-                logger.debug("resultSet is: " + resultSet.getString("login")
-                                            + " " + resultSet.getString("password"));
 
-                if (resultSet.next()) {
-                    logger.debug("Founded user by login and password");
-                    userMapper.mapRow(resultSet);
-                } else {
-                    logger.debug("No users were founded");
-                }
+
+
+
+        try {
+            Connection connection = ConnectionPool.getInstance().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERY_FIND_USER_BY_LOGIN_AND_PASSWORD);
+            preparedStatement.setString(1, login);
+            preparedStatement.setString(2, password);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+//                System.out.println(rs.getLong("id"));
+//                System.out.println(rs.getString("login"));
+//                System.out.println(rs.getString("password"));
+//                System.out.println(rs.getString("email"));
+//                System.out.println(rs.getString("name"));
+//                System.out.println(rs.getString("surname"));
+//                System.out.println(rs.getString("passport"));
+//                System.out.println(rs.getString("balance"));
+//                System.out.println(rs.getString("isActive"));
+                return userMapper.mapUser(resultSet);
             }
         } catch (SQLException e) {
-            logger.error("Cannot find by login and password", e);
-            throw new RuntimeException(e);
-        }
-        return null;
+            e.printStackTrace();
+        } return null;
+
+
+
+
+
     }
 
     @Override
@@ -92,7 +137,7 @@ public class UserDAOImpl implements UserDAO {
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 logger.debug("Founded user by login " + login);
-                return userMapper.mapRow(resultSet);
+                return userMapper.mapUser(resultSet);
 //                return extractFromResultSet(resultSet);
             }
         } catch (SQLException e) {

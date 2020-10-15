@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class IndexCommand implements Command {
 
-    private static final String PAGE_INDEX_PAGE = "/index.jsp";
+    private static final String PAGE_INDEX_PAGE = "index.jsp";
     private static final Logger logger = Logger.getLogger(IndexCommand.class);
 
     @Override

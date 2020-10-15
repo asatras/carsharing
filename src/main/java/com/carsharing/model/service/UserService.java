@@ -1,5 +1,6 @@
 package com.carsharing.model.service;
 
+import com.carsharing.command.LoginCommand;
 import com.carsharing.model.db.dao.DAOFactory;
 import com.carsharing.model.db.dao.UserDAO;
 import com.carsharing.model.db.entity.Role;
@@ -40,6 +41,10 @@ public class UserService {
         try (UserDAO userDAO = daoFactory.createUserDAO()) {
             user = Optional.ofNullable(userDAO
                     .findByLoginAndPassword(login, password));
+
+            //TEST
+//               user = Optional.ofNullable(LoginCommand.testmethod(login, password));
+               //end test
 
             logger.debug("Founded user: " + user.toString());
 

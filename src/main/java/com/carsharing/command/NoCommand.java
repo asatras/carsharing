@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class NoCommand implements Command {
 
-    public static final String PAGE_ERROR_PAGE = "/WEB-INF/error404.jsp";
+    private static final String PAGE_ERROR_PAGE = "WEB-INF/error404.jsp";
     private static final Logger logger = Logger.getLogger(NoCommand.class);
 
     @Override

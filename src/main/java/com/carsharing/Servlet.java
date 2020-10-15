@@ -18,8 +18,8 @@ public class Servlet extends HttpServlet {
     private static final Logger logger = Logger.getLogger(Servlet.class);
 
     //TODO /Carsharing/ must be deleted, but it doesnt work without it
-    private static String ERROR_404_PAGE = "/WEB-INF/error404.jsp";
-    private static String SERVER_ERROR_PAGE = "/WEB-INF/serverError.jsp";
+    private static String ERROR_404_PAGE = "WEB-INF/error404.jsp";
+    private static String SERVER_ERROR_PAGE = "WEB-INF/serverError.jsp";
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

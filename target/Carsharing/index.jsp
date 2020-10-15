@@ -28,7 +28,7 @@
              id="navcol-1">
 
                 <span class="navbar-text actions"> <a href="login.jsp" class="login"> <fmt:message key="message.login"/></a>
-                    <a class="btn btn-light action-button" role="button" href="${pageContext.request.contextPath}/registration"
+                    <a class="btn btn-light action-button" role="button" href="${pageContext.request.contextPath}/registration.jsp"
                        style="background-color: #0062cc;"> <fmt:message key="message.registration"/></a></a>
                 </span>
             <a class="btn" id="locales"
